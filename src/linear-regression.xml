@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--********************************************************************
+Copyright 2023 Sithindu Sirisooriya
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation.  A copy of
+the license is included in gfdl.xml.
+*********************************************************************-->
+
+<restrict-version versions="1554 default">
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="linear-regression">
+  <title>Linear Regression</title>
+
+  <objectives>
+    <ol>
+      <li>Understand linear regression as a method for modeling the relationship between a scalar dependent variable y and one or more explanatory variables (or independent variables) denoted x.</li>
+      <li><em>Recipes:</em> compute the regression coefficients using various methods such as analytic, algebraic, geometric, and probabilistic approaches.</li>
+      <li><em>Picture:</em> the geometric interpretation of linear regression as the projection of y onto the column space of x.</li>
+      <li><em>Vocabulary words:</em> least squares, regression coefficients, regularization.</li>
+    </ol>
+  </objectives>
+
+  <p>
+    In this section, we delve into linear regression, a foundational statistical method for estimating the relationships among variables.
+  </p>
+
+  <fact xml:id="linear-regression-formulation">
+    <idx><h>Linear Regression</h><h>formulation of</h></idx>
+    <statement>
+      <p>
+        Given a dataset with <m>n</m> points, where each point consists of a predictor variable <m>x_i</m> and a response variable <m>y_i</m>, linear regression assumes the model:
+        <me>y_i = c^T x_i + b_i</me>
+        where <m>c</m> represents the regression coefficients, and <m>b_i</m> is the error term.
+      </p>
+    </statement>
+    <proof>
+      <p>
+        The method of least squares estimates the coefficients <m>c</m> by minimizing the sum of the squares of the residuals—the differences between the observed values and the values predicted by the model. The solution, often written as <me>c^* = (X^TX)^{-1}X^Ty</me>, minimizes the cost function <me>L(c) = \sum_{i=1}^{n} (y_i - c^T x_i)^2</me>.
+      </p>
+    </proof>
+  </fact>
+
+  <specialcase>
+    <p>
+      Regularization techniques such as Ridge regression modify the least squares cost function to include a penalty term, which helps to prevent overfitting. For Ridge regression, the cost function becomes:
+      <me>L(c) = \sum_{i=1}^{n} (y_i - c^T x_i)^2 + \lambda \|c\|^2</me>
+      where <m>\lambda \geq 0</m> is a tuning parameter that controls the strength of the penalty.
+    </p>
+  </specialcase>
+
+  <p>
+    The analytic solution for Ridge regression is:
+    <me>c^* = (X^TX + \lambda I)^{-1}X^Ty</me>
+    where <m>I</m> is the identity matrix. This ensures that <m>(X^TX + \lambda I)</m> is always invertible, addressing issues that arise when <m>X^TX</m> is not full rank.
+  </p>
+
+  <definition xml:id="linear-regression-geometric">
+    <idx><h>Linear Regression</h><h>geometric interpretation</h></idx>
+    <statement>
+      <p>
+        Geometrically, linear regression can be seen as the projection of the vector <m>y</m> onto the column space of the matrix <m>X</m>. The vector of estimated values <me>\hat{y}</me>, given by <me>\hat{y} = Xc^*</me>, represents the projection of <m>y</m> onto the subspace spanned by the columns of <m>X</m>.
+      </p>
+    </statement>
+  </definition>
+
+  <example>
+    <title>Computing Linear Regression Coefficients</title>
+    <statement>
+      <p>
+        Given a matrix <m>X</m> and a vector <m>y</m>, to compute the linear regression coefficients <m>c</m>, one can use the formula:
+        <me>c^* = (X^TX)^{-1}X^Ty</me>
+        This represents the analytic solution to the ordinary least squares problem.
+      </p>
+    </statement>
+    <solution>
+      <p>
+        For example, if <m>X</m> is a matrix of predictor variables and <m>y</m> is the response vector, the coefficients <m>c</m> can be found using the above formula, which will yield the least squares estimates that minimize the residual sum of squares.
+      </p>
+    </solution>
+  </example>
+
+  <remark>
+    <p>
+      In practice, solving linear regression problems may involve iterative algorithms like gradient descent for large datasets where the analytic solution is computationally infeasible due to the size of <m>X</m>. Probabilistic interpretations like Maximum Likelihood Estimation (MLE) and Maximum a Posteriori (MAP) estimation can also be used to derive similar results with probabilistic foundations.
+    </p>
+  </remark>
+
+</section>
+
+</restrict-version>
